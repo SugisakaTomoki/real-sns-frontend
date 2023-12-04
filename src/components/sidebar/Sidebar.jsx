@@ -8,6 +8,7 @@ import {
   Settings,
 } from "@mui/icons-material";
 import React from "react";
+import "./Sidebar.css";
 
 const Sidebar = () => {
   return (
@@ -52,6 +53,22 @@ const Sidebar = () => {
               className="sidebarFriendImg"
             />
             <span className="sidebarFriendName">Shin Code</span>
+          </li>
+          <li className="sidebarFriend">
+            <img
+              src="/assets/person/3.jpeg"
+              alt=""
+              className="sidebarFriendImg"
+            />
+            <span className="sidebarFriendName">Tanaka</span>
+          </li>
+          <li className="sidebarFriend">
+            <img
+              src="/assets/person/4.jpeg"
+              alt=""
+              className="sidebarFriendImg"
+            />
+            <span className="sidebarFriendName">Satou</span>
           </li>
         </ul>
       </div>
