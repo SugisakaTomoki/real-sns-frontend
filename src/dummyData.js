@@ -71,12 +71,4 @@ export const Posts = [
     like: 100,
     comment: 3,
   },
-  {
-    id: 5,
-    desc: "筋肉は最高のファッションアイテム",
-    photo: "assets/post/6.jpeg",
-    userId: 5,
-    like: 29,
-    comment: 292941,
-  },
 ];
