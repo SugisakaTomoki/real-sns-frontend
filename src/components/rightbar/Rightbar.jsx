@@ -3,10 +3,11 @@ import "./Rightbar.css";
 import Online from "../online/Online";
 import { Users } from "../../dummyData";
 
-const Rightbar = () => {
-  return (
-    <div className="rightbar">
-      <div className="rightbarWrapper">
+// profileというproposを受け取る
+const Rightbar = ({ profile }) => {
+  const HomeRightbar = () => {
+    return (
+      <>
         <div className="eventContainer">
           <img src="assets/star.png" alt="" className="starImg" />
           <span className="eventText">
@@ -39,6 +40,72 @@ const Rightbar = () => {
           className="rightbarPromotionImg"
         />
         <p className="promotionName">ShinCode株式会社</p>
+      </>
+    );
+  };
+
+  const ProfileRightbar = () => {
+    return (
+      <>
+        <h4 className="rightbarTitle">ユーザー情報</h4>
+        <div className="rightbarInfo">
+          <div className="rightbarInfoItem">
+            <span className="rightbarInfoKey">出身：</span>
+            <span className="rightbarInfoKey">福岡</span>
+          </div>
+          <h4 className="rightbarTitle">あなたの友達</h4>
+          <div className="rightbarFollowings">
+            <div className="rightbarFollowing">
+              <img
+                src="assets/person/1.jpeg"
+                alt=""
+                className="rightbarFollowingImg"
+              />
+              <span className="rightbarFollowingName">Shin code</span>
+            </div>
+            <div className="rightbarFollowing">
+              <img
+                src="assets/person/2.jpeg"
+                alt=""
+                className="rightbarFollowingImg"
+              />
+              <span className="rightbarFollowingName">Yamaki</span>
+            </div>
+            <div className="rightbarFollowing">
+              <img
+                src="assets/person/3.jpeg"
+                alt=""
+                className="rightbarFollowingImg"
+              />
+              <span className="rightbarFollowingName">Koga</span>
+            </div>
+            <div className="rightbarFollowing">
+              <img
+                src="assets/person/4.jpeg"
+                alt=""
+                className="rightbarFollowingImg"
+              />
+              <span className="rightbarFollowingName">Matukubo</span>
+            </div>
+            <div className="rightbarFollowing">
+              <img
+                src="assets/person/5.jpeg"
+                alt=""
+                className="rightbarFollowingImg"
+              />
+              <span className="rightbarFollowingName">Kikukawa</span>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  return (
+    <div className="rightbar">
+      <div className="rightbarWrapper">
+        {/* componentに、profileという変数が記載されていた場合はprofilerightbarを表示する */}
+        {profile ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>
   );

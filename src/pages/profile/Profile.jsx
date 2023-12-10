@@ -32,7 +32,8 @@ export default function Profile() {
           </div>
           <div className="profileRightBottom">
             <Timeline />
-            <Rightbar />
+            {/* propsで変数を渡し、profileのRightbarだと判別できるようにする */}
+            <Rightbar profile />
           </div>
         </div>
       </div>
