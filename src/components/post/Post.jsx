@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Post.css";
 import { MoreVert } from "@mui/icons-material";
-import { Users } from "../../dummyData";
+// import { Users } from "../../dummyData";
+import axios from "axios";
 
 // Postコンポーネントの定義
 export const Post = ({ post }) => {
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+
   // User配列から、idが1のユーザーを検索して新しい配列に格納する
   // const user = Users.filter((user) => user.id === 1);
   // user配列全体をコンソールに出力する;
@@ -14,6 +17,17 @@ export const Post = ({ post }) => {
   const [like, setLike] = useState(post.like);
 
   const [isLiked, setIsLiked] = useState(false);
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await axios.get(`/users/${post.userId}`);
+      console.log(response);
+      setUser(response.data);
+    };
+    fetchUser();
+  }, []);
 
   // handleLike関数の宣言
   const handleLike = () => {
@@ -29,16 +43,8 @@ export const Post = ({ post }) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              src={
-                Users.filter((user) => user.id === post.id)[0].profilePicture
-              }
-              alt=""
-              className="postProfileImg"
-            />
-            <span className="postUsername">
-              {Users.filter((user) => user.id === post.id)[0].username}
-            </span>
+            <img src={user.profilePicture} alt="" className="postProfileImg" />
+            <span className="postUsername">{user.username}</span>
             <span className="postDate">{post.date}</span>
           </div>
           <div className="postTopRight">
@@ -47,12 +53,12 @@ export const Post = ({ post }) => {
         </div>
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
-          <img src={post.photo} alt="" className="postImg" />
+          <img src={PUBLIC_FOLDER + post.photo} alt="" className="postImg" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
             <img
-              src="./assets/heart.png"
+              src={PUBLIC_FOLDER + "/heart.png"}
               alt=""
               className="likeIcon"
               // reactコンポーネント内でボタンがクリックされたときに"handleLike"関数を実行する為のイベントハンドラ
