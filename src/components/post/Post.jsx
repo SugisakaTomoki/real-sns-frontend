@@ -3,6 +3,8 @@ import "./Post.css";
 import { MoreVert } from "@mui/icons-material";
 // import { Users } from "../../dummyData";
 import axios from "axios";
+import { format } from "timeago.js";
+import { Link } from "react-router-dom";
 
 // Postコンポーネントの定義
 export const Post = ({ post }) => {
@@ -14,7 +16,7 @@ export const Post = ({ post }) => {
   // console.log(user[0].username);
 
   // useStateフックを使用して状態変数"like"とその更新関数"setLike"を宣言
-  const [like, setLike] = useState(post.like);
+  const [like, setLike] = useState(post.likes.length);
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -22,12 +24,12 @@ export const Post = ({ post }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`/users/${post.userId}`);
+      const response = await axios.get(`/users?userId=${post.userId}`);
       console.log(response);
       setUser(response.data);
     };
     fetchUser();
-  }, []);
+  }, [post.userId]);
 
   // handleLike関数の宣言
   const handleLike = () => {
@@ -43,9 +45,20 @@ export const Post = ({ post }) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img src={user.profilePicture} alt="" className="postProfileImg" />
+            <Link to={`/profile/${user.username}`}>
+              <img
+                src={
+                  // PUBLIC_FOLSER=http://localhost:3000/assetsで、毎回パスを記載するのが面倒なため、環境変数に格納
+                  // "||"は、又はという意味で、今回でいうとuser.profilePictureが設定されていない場合はnoAvatar.pngを使用
+                  user.profilePicture || PUBLIC_FOLDER + "/person/noAvatar.png"
+                }
+                alt=""
+                className="postProfileImg"
+              />
+            </Link>
+
             <span className="postUsername">{user.username}</span>
-            <span className="postDate">{post.date}</span>
+            <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <div className="postTopRight">
             <MoreVert />
@@ -53,7 +66,7 @@ export const Post = ({ post }) => {
         </div>
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
-          <img src={PUBLIC_FOLDER + post.photo} alt="" className="postImg" />
+          <img src={PUBLIC_FOLDER + post.img} alt="" className="postImg" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

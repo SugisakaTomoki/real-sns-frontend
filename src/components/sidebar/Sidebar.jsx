@@ -43,7 +43,7 @@ const Sidebar = () => {
           <li className="sidebarListItem">
             <Person className="sidebarIcon" />
             <Link
-              to="/profile/shincode"
+              to="/profile/tkg"
               style={{ textDecoration: "none", color: "black" }}
             >
               <span className="sidebarListItemText">プロフィール</span>

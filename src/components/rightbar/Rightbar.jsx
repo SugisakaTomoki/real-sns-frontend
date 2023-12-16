@@ -3,8 +3,8 @@ import "./Rightbar.css";
 import Online from "../online/Online";
 import { Users } from "../../dummyData";
 
-// profileというproposを受け取る
-const Rightbar = ({ profile }) => {
+// userというproposを受け取る
+const Rightbar = ({ user }) => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   const HomeRightbar = () => {
     return (
@@ -105,8 +105,7 @@ const Rightbar = ({ profile }) => {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        {/* componentに、profileという変数が記載されていた場合はprofilerightbarを表示する */}
-        {profile ? <ProfileRightbar /> : <HomeRightbar />}
+        {user ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>
   );
