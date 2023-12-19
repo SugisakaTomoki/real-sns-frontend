@@ -48,9 +48,11 @@ export const Post = ({ post }) => {
             <Link to={`/profile/${user.username}`}>
               <img
                 src={
-                  // PUBLIC_FOLSER=http://localhost:3000/assetsで、毎回パスを記載するのが面倒なため、環境変数に格納
-                  // "||"は、又はという意味で、今回でいうとuser.profilePictureが設定されていない場合はnoAvatar.pngを使用
-                  user.profilePicture || PUBLIC_FOLDER + "/person/noAvatar.png"
+                  user.profilePicture
+                    ? // PUBLIC_FOLSER=http://localhost:3000/assetsで、毎回パスを記載するのが面倒なため、環境変数に格納
+                      // "||"は、又はという意味で、今回でいうとuser.profilePictureが設定されていない場合はnoAvatar.pngを使用
+                      PUBLIC_FOLDER + user.profilePicture
+                    : PUBLIC_FOLDER + "/person/noAvatar.png"
                 }
                 alt=""
                 className="postProfileImg"

@@ -2,12 +2,15 @@ import React from "react";
 import "./Register.css";
 import { useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function Register() {
   const email = useRef();
   const password = useRef();
   const passwordConfirmation = useRef();
   const username = useRef();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +27,8 @@ export default function Register() {
         };
         // registerApiを叩く
         await axios.post("/auth/register", user);
+        // 新規登録に成功したら、loginページへリダイレクトする
+        navigate("/login");
       } catch (err) {
         console.log(err);
       }

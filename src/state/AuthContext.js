@@ -5,7 +5,18 @@ import AuthReducer from "./AuthReducer";
 // 初期状態を定義
 const initialState = {
   // ユーザー情報を初期化
-  user: null,
+  // user: null,
+  user: {
+    _id: "6564519353c8a4af57e822b1",
+    username: "tkg",
+    email: "tkg@gmail.com",
+    password: "abcdef",
+    profilePicture: "",
+    coverPicture: "",
+    followers: [],
+    followings: [],
+    isAdmin: false,
+  },
   //   データの取得中を示すフラグをfalseに設定
   isFetching: false,
   //   エラーが発生していない事を示すフラグをfalseに設定
