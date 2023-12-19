@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Post.css";
 import { MoreVert } from "@mui/icons-material";
 // import { Users } from "../../dummyData";
 import axios from "axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../state/AuthContext";
 
 // Postコンポーネントの定義
 export const Post = ({ post }) => {
@@ -22,6 +23,8 @@ export const Post = ({ post }) => {
 
   const [user, setUser] = useState({});
 
+  const { user: currentUser } = useContext(AuthContext);
+
   useEffect(() => {
     const fetchUser = async () => {
       const response = await axios.get(`/users?userId=${post.userId}`);
@@ -32,7 +35,14 @@ export const Post = ({ post }) => {
   }, [post.userId]);
 
   // handleLike関数の宣言
-  const handleLike = () => {
+  const handleLike = async () => {
+    try {
+      // いいねのAPIを叩いていく
+      await axios.put(`/posts/${post._id}/like`, { userId: currentUser._id });
+    } catch (err) {
+      console.log(err);
+    }
+
     // setLikeを使用してlikeの値を更新
     // isLikedがtrueならlikeを1減算、falseなら1加算
     setLike(isLiked ? like - 1 : like + 1);
