@@ -23,7 +23,13 @@ const Timeline = ({ username }) => {
         : await axios.get(`/posts/timeline/${user._id}`); //ホームの場合
       //console.log(response);
       // サーバーレスポンスから取得したデータをコンポーネントの状態にセット
-      setPosts(response.data);
+      setPosts(
+        // 投稿データを作成日時で降順にソートしてコンポーネントの状態にセット
+        response.data.sort((post1, post2) => {
+          // 作成日時をDateオブジェクトに変換して比較し、新しいものから古いものの順にソート
+          return new Date(post2.createdAt) - new Date(post1.createdAt);
+        })
+      );
     };
     // コンポーネントがマウントされたときにfecthPosts関数を呼び出す
     fetchPosts();
